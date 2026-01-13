@@ -192,7 +192,7 @@ int main(int argc, char* argv[]) {
 
     N = atoi(argv[1]);
     if (N < 5) {
-        cerr << "Liczba filozofów musi być co najmniej 5.\n";
+        cerr << "Liczba filozofów musi wynosić conajmniej 5.\n";
         return 1;
     }
 
