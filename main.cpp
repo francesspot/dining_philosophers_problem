@@ -186,7 +186,7 @@ void visualization_thread() {
 int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "");
     if (argc != 2) {
-        cerr << "Użycie: " << argv[0] << " <liczba_filozofów>\n";
+        cerr << "Użyj: " << argv[0] << " <liczba_filozofów>\n";
         return 1;
     }
 
