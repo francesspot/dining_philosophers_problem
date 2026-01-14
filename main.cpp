@@ -14,9 +14,9 @@
 using namespace std;
 
 enum class State {
-    THINKING,
-    EATING,
-    WAITING
+    THINKING, // Myśli
+    EATING, // Je
+    WAITING // Czeka
 };
 
 int N; // Liczba filozofów
@@ -82,7 +82,7 @@ void put_forks(int i) {
 
 void philosopher_thread(int id) {
     while (running && !finished[id]) {
-        // Thinking
+        // Myślenie
         {
             this_thread::sleep_for(
                 chrono::seconds(1 + rand() % 3)
@@ -94,7 +94,7 @@ void philosopher_thread(int id) {
 
         if (!running) break;
 
-        // Eating
+        // Jedzenie
         int duration = 20;
         for (int step = 1; step <= duration && running; step++) 
         {
