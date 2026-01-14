@@ -40,9 +40,7 @@ int right(int i) {
 }
 
 bool can_eat(int i) {
-    return philosophers[i] == State::WAITING &&
-           forks[i] &&
-           forks[right(i)];
+    return philosophers[i] == State::WAITING && forks[i] && forks[right(i)];
 }
 
 void take_forks(int i) {
