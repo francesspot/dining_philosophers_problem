@@ -6,14 +6,14 @@
 
 > 🎓 Project for the **Operating Systems** course (Wrocław University of Science and Technology)
 
-The classic thread-synchronisation problem: philosophers sit at a round table and each needs two forks — shared with their neighbours — to eat. 🍴 My solution is deadlock-free, and you can watch the whole thing live in the terminal.
+The classic thread-synchronisation problem: philosophers sit at a round table and each needs two forks — shared with their neighbours — to eat. The solution is deadlock-free, and the simulation is visualised in the terminal.
 
 ## ✨ What I did
 
-- 🧵 Every philosopher is a **separate thread** (`std::thread`)
-- 🔒 Forks are taken **both at once or not at all** (under one `mutex`), so deadlock can't happen
-- 😴 A waiting philosopher **sleeps** on a `condition_variable` instead of busy-waiting, and after eating wakes only the neighbours who can now eat
-- 📺 **ncurses visualisation** — each philosopher's state (thinking / waiting / eating), eating progress bars and fork states, refreshed every 50 ms
+- Every philosopher is a **separate thread** (`std::thread`)
+- Forks are taken **both at once or not at all** (under one `mutex`), so deadlock can't happen
+- A waiting philosopher **sleeps** on a `condition_variable` instead of busy-waiting, and after eating wakes only the neighbours who can now eat
+- **ncurses visualisation** — each philosopher's state (thinking / waiting / eating), eating progress bars and fork states, refreshed every 50 ms
 
 ## 🛠️ Tech
 

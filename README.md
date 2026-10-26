@@ -6,14 +6,14 @@
 
 > 🎓 Projekt na przedmiot **Systemy Operacyjne** (Politechnika Wrocławska)
 
-Klasyczny problem synchronizacji wątków: filozofowie siedzą przy okrągłym stole, a żeby zjeść, każdy potrzebuje dwóch widelców, które dzieli z sąsiadami. 🍴 Moje rozwiązanie działa bez zakleszczeń, a cały przebieg widać na żywo w terminalu.
+Klasyczny problem synchronizacji wątków: filozofowie siedzą przy okrągłym stole, a żeby zjeść, każdy potrzebuje dwóch widelców, które dzieli z sąsiadami. Rozwiązanie jest wolne od zakleszczeń, a przebieg symulacji jest wizualizowany w terminalu.
 
 ## ✨ Co zrobiłem
 
-- 🧵 Każdy filozof to **osobny wątek** (`std::thread`)
-- 🔒 Widelce brane są **oba naraz albo wcale** (pod jednym `mutex`em), więc zakleszczenie jest niemożliwe
-- 😴 Czekający filozof **śpi** na `condition_variable` zamiast kręcić się w pętli, a po jedzeniu budzi tylko sąsiadów, którzy mogą już jeść
-- 📺 **Wizualizacja w ncurses** — stan każdego filozofa (myśli / czeka / je), paski postępu jedzenia i stan widelców, odświeżane co 50 ms
+- Każdy filozof to **osobny wątek** (`std::thread`)
+- Widelce brane są **oba naraz albo wcale** (pod jednym `mutex`em), więc zakleszczenie jest niemożliwe
+- Czekający filozof **śpi** na `condition_variable` zamiast aktywnie czekać w pętli, a po jedzeniu budzi tylko sąsiadów, którzy mogą już jeść
+- **Wizualizacja w ncurses** — stan każdego filozofa (myśli / czeka / je), paski postępu jedzenia i stan widelców, odświeżane co 50 ms
 
 ## 🛠️ Technologie
 
