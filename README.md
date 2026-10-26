@@ -1,33 +1,27 @@
-**Polski** | [English](README.en.md)
+🇵🇱 **Polski** | 🇬🇧 [English](README.en.md)
 
-# Problem ucztujących filozofów
+# 🍝 Problem ucztujących filozofów
 
-Implementacja klasycznego problemu synchronizacji — **ucztujących filozofów** — w C++, z wizualizacją na żywo w terminalu (**ncurses**).
+![C++](https://img.shields.io/badge/C++-00599C?logo=cplusplus&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
 
-Każdy filozof działa w osobnym wątku. Myśli przez 1–3 s, czeka na oba widelce, je (ok. 4 s, widoczne jako pasek postępu), odkłada widelce i kończy. Program zamyka się kilka sekund po tym, jak zjedzą wszyscy filozofowie.
+> 🎓 Projekt na przedmiot **Systemy Operacyjne** (Politechnika Wrocławska)
 
-## Jak uniknięto zakleszczenia i zagłodzenia
+Klasyczny problem synchronizacji wątków: filozofowie siedzą przy okrągłym stole, a żeby zjeść, każdy potrzebuje dwóch widelców, które dzieli z sąsiadami. 🍴 Moje rozwiązanie działa bez zakleszczeń, a cały przebieg widać na żywo w terminalu.
 
-- Filozof bierze **oba widelce naraz albo żadnego** — sprawdzenie i podniesienie widelców odbywa się pod jednym wspólnym `std::mutex`, więc nie powstaje cykliczne oczekiwanie prowadzące do zakleszczenia.
-- Każdy filozof ma własną `std::condition_variable`. Filozof czekający na widelce śpi na niej zamiast aktywnie czekać.
-- Po jedzeniu filozof budzi tylko **lewego i prawego sąsiada** i tylko wtedy, gdy ci mogą już jeść.
-- `std::atomic<bool> running` pozwala poprawnie zakończyć wszystkie wątki.
+## ✨ Co zrobiłem
 
-## Wizualizacja
+- 🧵 Każdy filozof to **osobny wątek** (`std::thread`)
+- 🔒 Widelce brane są **oba naraz albo wcale** (pod jednym `mutex`em), więc zakleszczenie jest niemożliwe
+- 😴 Czekający filozof **śpi** na `condition_variable` zamiast kręcić się w pętli, a po jedzeniu budzi tylko sąsiadów, którzy mogą już jeść
+- 📺 **Wizualizacja w ncurses** — stan każdego filozofa (myśli / czeka / je), paski postępu jedzenia i stan widelców, odświeżane co 50 ms
 
-Osobny wątek odświeża ekran co 50 ms i pokazuje:
+## 🛠️ Technologie
 
-- stan każdego filozofa — *Filozofuje*, *Czeka*, *Je*,
-- pasek postępu jedzenia każdego filozofa,
-- stan każdego widelca — *wolny* / *zajęty*.
+C++17 · `std::thread` · `mutex` · `condition_variable` · `atomic` · ncurses
 
-## Kompilacja i uruchomienie
-
-Wymagany Linux/macOS z biblioteką ncurses (`sudo apt install libncurses-dev` na Debianie/Ubuntu).
+## 🚀 Uruchomienie
 
 ```bash
 g++ -std=c++17 -O2 main.cpp -o filozofowie -lncurses -pthread
-./filozofowie 5
+./filozofowie 5    # liczba filozofów (min. 5)
 ```
-
-Argument to liczba filozofów (co najmniej 5).

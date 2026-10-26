@@ -1,35 +1,27 @@
-[Polski](README.md) | **English**
+🇵🇱 [Polski](README.md) | 🇬🇧 **English**
 
-# Dining Philosophers Problem
+# 🍝 Dining Philosophers Problem
 
-A C++ implementation of the classic **dining philosophers** synchronisation problem, with a live terminal visualisation in **ncurses**.
+![C++](https://img.shields.io/badge/C++-00599C?logo=cplusplus&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
 
-Every philosopher runs in its own thread. Each one thinks for 1–3 s, waits for both forks, eats (about 4 s, shown as a progress bar), puts the forks down and finishes. The program ends a few seconds after every philosopher has eaten.
+> 🎓 Project for the **Operating Systems** course (Wrocław University of Science and Technology)
 
-## How deadlock and starvation are avoided
+The classic thread-synchronisation problem: philosophers sit at a round table and each needs two forks — shared with their neighbours — to eat. 🍴 My solution is deadlock-free, and you can watch the whole thing live in the terminal.
 
-- A philosopher picks up **both forks at once, or none** — the check and the pick-up happen under one shared `std::mutex`, so the circular wait that causes deadlock cannot occur.
-- Each philosopher has their own `std::condition_variable`. A philosopher waiting for forks sleeps on it instead of busy-waiting.
-- After eating, a philosopher wakes only their **left and right neighbours**, and only if those neighbours can actually eat now.
-- `std::atomic<bool> running` lets all threads shut down cleanly.
+## ✨ What I did
 
-## Visualisation
+- 🧵 Every philosopher is a **separate thread** (`std::thread`)
+- 🔒 Forks are taken **both at once or not at all** (under one `mutex`), so deadlock can't happen
+- 😴 A waiting philosopher **sleeps** on a `condition_variable` instead of busy-waiting, and after eating wakes only the neighbours who can now eat
+- 📺 **ncurses visualisation** — each philosopher's state (thinking / waiting / eating), eating progress bars and fork states, refreshed every 50 ms
 
-A separate thread redraws the screen every 50 ms and shows:
+## 🛠️ Tech
 
-- the state of each philosopher — *Filozofuje* (thinking), *Czeka* (waiting), *Je* (eating),
-- an eating progress bar for each philosopher,
-- the state of each fork — *wolny* (free) / *zajęty* (taken).
+C++17 · `std::thread` · `mutex` · `condition_variable` · `atomic` · ncurses
 
-The interface text is in Polish.
-
-## Build and run
-
-Requires Linux/macOS with the ncurses library (`sudo apt install libncurses-dev` on Debian/Ubuntu).
+## 🚀 Run it
 
 ```bash
 g++ -std=c++17 -O2 main.cpp -o filozofowie -lncurses -pthread
-./filozofowie 5
+./filozofowie 5    # number of philosophers (at least 5)
 ```
-
-The argument is the number of philosophers (at least 5).
